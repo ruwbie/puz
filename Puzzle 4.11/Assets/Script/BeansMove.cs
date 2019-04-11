@@ -43,7 +43,7 @@ public class BeansMove : MonoBehaviour
     private void OnMouseUp()
     {
         this.gameObject.GetComponent<Status>().GravityOn();
-
+        
     }
 
     void pushObjectBackInFrustum(Transform transform)

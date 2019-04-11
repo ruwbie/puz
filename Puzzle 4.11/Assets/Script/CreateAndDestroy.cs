@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreateAndDestroy : MonoBehaviour
 {
     [SerializeField]
-    private GameObject smaller_clone_;
+    private GameObject smaller_clone_ = null;
     //private float random_value_x_ = 0;
     //private float random_value_y_ = 0;
     private Vector3 random_position_;
