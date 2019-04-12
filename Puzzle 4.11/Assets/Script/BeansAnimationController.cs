@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeansAnimationController : MonoBehaviour
 {
-    
+
     public Animator beans_animator_;
 
 
@@ -34,8 +34,8 @@ public class BeansAnimationController : MonoBehaviour
 
     private void RandomTrigger()
     {
-        float randomX = Random.Range(0,2);
-        if(randomX == 1)
+        float randomX = Random.Range(0, 2);
+        if (randomX == 1)
         {
             beans_animator_.SetTrigger("Idle_trigger");
         }
@@ -43,12 +43,17 @@ public class BeansAnimationController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        beans_animator_.SetBool("Is_tapped", true);
+        SetTappedOn();
     }
 
     //private void OnMouseUp()
     //{
     //    beans_animator_.SetBool("Is_tapped", false);
     //}
+
+    public void SetTappedOn()
+    {
+        beans_animator_.SetBool("Is_tapped", true);
+    }
 
 }

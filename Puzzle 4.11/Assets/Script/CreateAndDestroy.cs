@@ -6,40 +6,62 @@ public class CreateAndDestroy : MonoBehaviour
 {
     [SerializeField]
     private GameObject smaller_clone_ = null;
-    //private float random_value_x_ = 0;
-    //private float random_value_y_ = 0;
     private Vector3 random_position_;
 
     private float offset_ = 0.1f;
 
-    private void OnMouseUp()
-    {
+    public Transform score_popup_transform;
 
-        Destroy(this.gameObject);
-        if(smaller_clone_ != null)
+    private void Update()
+    {
+        if(Input.GetMouseButtonUp(0))
         {
-            for(int i = 0; i <3; ++i)
+
+            if (this.gameObject.GetComponent<Status>().GetHoming() || this.gameObject.GetComponent<Status>().GetTarget())
             {
-                //random_value_x_ = Random.Range(-1, 2);
-                //random_value_y_ = Random.Range(-1, 2);
-                //if(i == 0)
-                //{
-                //    random_position_ = new Vector3(this.transform.position.x, this.transform.position.y + 0.1f, 0);
-                //}
-                //else if(i == 1)
-                //{
-                //    random_position_ = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y - 0.1f, 0);
-                //}
-                //else
-                //{
-                //    random_position_ = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.1f, 0);
-                //}
-                SetPosition(i);
-                
-                Instantiate(smaller_clone_, random_position_, Quaternion.identity);
+                if (smaller_clone_ != null)
+                {
+                    for (int i = 0; i < 3; ++i)
+                    {
+
+                        SetPosition(i);
+
+                        Instantiate(smaller_clone_, random_position_, Quaternion.identity);
+
+                    }
+                }
+                else
+                {
+                    //Instantiate(score_popup_, this.transform.position, Quaternion.identity);
+                    ScorePopup.Create(score_popup_transform, this.transform.position, 100);
+                }
+
+                Destroy(this.gameObject);
+
             }
         }
     }
+
+    //private void OnMouseUp()
+    //{
+    //    if(smaller_clone_ != null)
+    //    {
+    //        for(int i = 0; i <3; ++i)
+    //        {
+               
+    //            SetPosition(i);
+                
+    //            Instantiate(smaller_clone_, random_position_, Quaternion.identity);
+               
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //Instantiate(score_popup_, this.transform.position, Quaternion.identity);
+    //        ScorePopup.Create(score_popup_transform ,this.transform.position, 100);
+    //    }
+
+    //}
 
     private void SetPosition(int i)
     {

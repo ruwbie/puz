@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smaller_clone_: {fileID: 0}
+  score_popup_transform: {fileID: 2285430548345642756, guid: 715ca60d7f42421448a8214a6af9b98f,
+    type: 3}
 --- !u!114 &3012885988615421753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +142,7 @@ MonoBehaviour:
   target_: 0
   homing_: 0
   speed_: 3
+  gravity_scale_: -0.2
 --- !u!95 &8643801433144683054
 Animator:
   serializedVersion: 3
@@ -190,7 +193,7 @@ Rigidbody2D:
   m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: -0.2
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

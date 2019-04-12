@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
-    public bool target_;
-    public bool homing_;
+    public bool target_ = false;
+    public bool homing_ = false;
 
     private Transform lockon_;
 
@@ -16,6 +16,8 @@ public class Status : MonoBehaviour
     private float collision_time_ = 0;
 
     public float speed_;
+
+    public float gravity_scale_;
     
 
     // Start is called before the first frame update
@@ -23,12 +25,14 @@ public class Status : MonoBehaviour
     {
         lockon_ = null;
         rigidbody_ = GetComponent<Rigidbody2D>();
+        this.GravityOn();
     }
 
     private void FixedUpdate()
     {
         if (homing_)
         {
+            this.gameObject.GetComponent<BeansAnimationController>().SetTappedOn();
             HomingtoTarget();
         }
     }
@@ -48,7 +52,7 @@ public class Status : MonoBehaviour
         if(collision.gameObject.GetComponent<Status>().target_)
         {
             this.collision_time_++;
-            if(this.collision_time_ > 17)
+            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 20)       //magicNum
             {
                 SetHomingT();
                 lockon_ = collision.gameObject.transform;
@@ -88,6 +92,16 @@ public class Status : MonoBehaviour
         this.homing_ = false;
     }
 
+    public bool GetHoming()
+    {
+        return this.homing_;
+    }
+
+    public bool GetTarget()
+    {
+        return this.target_;
+    }
+
     public void GravityZero()
     {
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -95,6 +109,6 @@ public class Status : MonoBehaviour
 
     public void GravityOn()
     {
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = -1;
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = gravity_scale_;
     }
 }
