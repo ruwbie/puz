@@ -18,6 +18,7 @@ public class Status : MonoBehaviour
     public float speed_;
 
     public float gravity_scale_;
+
     
 
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class Status : MonoBehaviour
         rigidbody_ = GetComponent<Rigidbody2D>();
         this.GravityOn();
     }
+
 
     private void FixedUpdate()
     {
@@ -39,20 +41,24 @@ public class Status : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(BlockInput.is_game_over_)
+        {
+            return;
+        }
         SetTargetT();
     }
 
 
     private void OnCollisionStay2D(Collision2D collision)   //★
     {
-        if(collision.gameObject.GetComponent<Status>() == null)
+        if(collision.gameObject.GetComponent<Status>() == null || this.enabled == false)
         {
             return;
         }
         if(collision.gameObject.GetComponent<Status>().target_)
         {
             this.collision_time_++;
-            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 20)       //magicNum
+            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 30)       //magicNum
             {
                 SetHomingT();
                 lockon_ = collision.gameObject.transform;

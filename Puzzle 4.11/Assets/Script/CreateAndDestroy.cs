@@ -14,6 +14,7 @@ public class CreateAndDestroy : MonoBehaviour
 
     private void Update()
     {
+
         if(Input.GetMouseButtonUp(0))
         {
 

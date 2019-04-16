@@ -30,6 +30,10 @@ public class BeansAnimationController : MonoBehaviour
         //=====================================================TOUCH===============================================
         #endregion
 
+        if(BlockInput.is_game_over_)
+        {
+            this.enabled = false;
+        }
     }
 
     private void RandomTrigger()
@@ -43,7 +47,11 @@ public class BeansAnimationController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        SetTappedOn();
+        if(this.gameObject.GetComponent<Status>().GetHoming() || this.gameObject.GetComponent<Status>().GetTarget())
+        {
+            SetTappedOn();
+        }
+       
     }
 
     //private void OnMouseUp()
