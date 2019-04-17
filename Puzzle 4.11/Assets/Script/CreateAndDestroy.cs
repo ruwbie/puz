@@ -12,6 +12,14 @@ public class CreateAndDestroy : MonoBehaviour
 
     public Transform score_popup_transform;
 
+    private float this_mass_;
+
+    private void Start()
+    {
+        this_mass_ = this.gameObject.GetComponent<Rigidbody2D>().mass;
+        GameManager.ume_points_ += 1 * this_mass_;
+    }
+
     private void Update()
     {
 
@@ -33,36 +41,24 @@ public class CreateAndDestroy : MonoBehaviour
                 }
                 else
                 {
-                    //Instantiate(score_popup_, this.transform.position, Quaternion.identity);
+                    
                     ScorePopup.Create(score_popup_transform, this.transform.position, 100);
+                    if(Score.score_int_ >= 9999900)
+                    {
+                        return;
+                    }
+                    Score.score_int_ += 100;
+                    
+                    
                 }
-
+                GameManager.ume_points_ -= 1 * this_mass_;
                 Destroy(this.gameObject);
 
             }
         }
     }
 
-    //private void OnMouseUp()
-    //{
-    //    if(smaller_clone_ != null)
-    //    {
-    //        for(int i = 0; i <3; ++i)
-    //        {
-               
-    //            SetPosition(i);
-                
-    //            Instantiate(smaller_clone_, random_position_, Quaternion.identity);
-               
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //Instantiate(score_popup_, this.transform.position, Quaternion.identity);
-    //        ScorePopup.Create(score_popup_transform ,this.transform.position, 100);
-    //    }
-
-    //}
+    
 
     private void SetPosition(int i)
     {

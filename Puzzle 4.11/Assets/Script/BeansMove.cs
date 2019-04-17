@@ -33,14 +33,19 @@ public class BeansMove : MonoBehaviour
         {
             transform.Translate(Input.GetTouch(0).deltaPosition * Time.deltaTime);
         }
-
-        
         pushObjectBackInFrustum(this.transform);
+
+        if(this.gameObject.GetComponent<Status>().GetHoming())
+        {
+            this.rand_vector_ = Vector2.zero;
+            StopCoroutine(RandomVector());
+        }
+        
     }
 
     private void OnMouseDown()
     {
-        if (BlockInput.is_game_over_)
+        if (GameManager.is_game_over_)
         {
             return;
         }
@@ -51,20 +56,16 @@ public class BeansMove : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (BlockInput.is_game_over_)
+        if (GameManager.is_game_over_)
         {
             return;
         }
         mouse_position_ = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         this.transform.position = new Vector2(mouse_position_.x - delta_x_, mouse_position_.y - delta_y_);
-        this.gameObject.GetComponent<Status>().GravityZero();
-    }
-
-    private void OnMouseUp()
-    {
-        this.gameObject.GetComponent<Status>().GravityOn();
         
     }
+
+    
 
     void pushObjectBackInFrustum(Transform transform)
     {
@@ -104,7 +105,7 @@ public class BeansMove : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             Rand4();
         }
 

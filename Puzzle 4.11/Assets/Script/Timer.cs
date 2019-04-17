@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using TMPro;
+//==================================================
 public class Timer : MonoBehaviour
 {
     public Transform timer_bar_;
@@ -17,7 +18,7 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         
-        BlockInput.is_game_over_ = false;
+        GameManager.is_game_over_ = false;
     }
     // Update is called once per frame
     void Update()
@@ -36,14 +37,25 @@ public class Timer : MonoBehaviour
             button_retry_.gameObject.SetActive(true);
             text_indicator_.GetComponent<Text>().text = "OVER!";
 
-            BlockInput.is_game_over_ = true;
+            GameManager.is_game_over_ = true;
             
         }
+        if(current_amount_ < 40)
+        {
+            //timerbar.color orange?
+        }
+        else if(current_amount_ < 10)
+        {
+            //timerbar.color red?
+        }
+
         timer_bar_.GetComponent<Image>().fillAmount = current_amount_ / 60;
     }
 
-    public void RestartGame()
+    public void RestartGame() //???
     {
+        GameManager.ume_points_ = 0;
+        Score.score_int_ = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

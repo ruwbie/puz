@@ -30,7 +30,7 @@ public class BeansAnimationController : MonoBehaviour
         //=====================================================TOUCH===============================================
         #endregion
 
-        if(BlockInput.is_game_over_)
+        if(GameManager.is_game_over_)
         {
             this.enabled = false;
         }

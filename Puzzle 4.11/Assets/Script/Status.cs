@@ -17,7 +17,7 @@ public class Status : MonoBehaviour
 
     public float speed_;
 
-    public float gravity_scale_;
+   
 
     
 
@@ -26,7 +26,7 @@ public class Status : MonoBehaviour
     {
         lockon_ = null;
         rigidbody_ = GetComponent<Rigidbody2D>();
-        this.GravityOn();
+        
     }
 
 
@@ -41,7 +41,7 @@ public class Status : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(BlockInput.is_game_over_)
+        if(GameManager.is_game_over_)
         {
             return;
         }
@@ -58,7 +58,7 @@ public class Status : MonoBehaviour
         if(collision.gameObject.GetComponent<Status>().target_)
         {
             this.collision_time_++;
-            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 30)       //magicNum
+            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 10)       //magicNum
             {
                 SetHomingT();
                 lockon_ = collision.gameObject.transform;
@@ -76,10 +76,10 @@ public class Status : MonoBehaviour
         if (this.lockon_ == null)
         {
             SetHomingF();
-            GravityOn();
+            
             return;
         }
-        GravityZero();
+        
         transform.position = Vector2.MoveTowards(transform.position, lockon_.position, speed_ * Time.deltaTime);
     }
 
@@ -108,13 +108,13 @@ public class Status : MonoBehaviour
         return this.target_;
     }
 
-    public void GravityZero()
-    {
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-    }
+    //public void GravityZero()
+    //{
+    //    this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+    //}
 
-    public void GravityOn()
-    {
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = gravity_scale_;
-    }
+    //public void GravityOn()
+    //{
+    //    this.gameObject.GetComponent<Rigidbody2D>().gravityScale = gravity_scale_;
+    //}
 }
