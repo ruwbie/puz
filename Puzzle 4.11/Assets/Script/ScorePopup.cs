@@ -23,7 +23,7 @@ public class ScorePopup : MonoBehaviour
         move_vector_ = new Vector3(0.7f, 1) * 2f ;
     }
 
-    public void Setup(int scoreAmount)
+    public virtual void Setup(int scoreAmount)
     {
         textmesh_.SetText(scoreAmount.ToString());
         

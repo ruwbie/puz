@@ -12,7 +12,7 @@ public class MonsterFactory : MonoBehaviour
     void Update()
     {
         Rand4();
-        if(GameManager.ume_points_ < 15.0f)
+        if(GameManager.alive_points_ < GameManager.MAX_alive_points_)
         {
             Instantiate(mosters_[rand_num_],this.transform);
         }

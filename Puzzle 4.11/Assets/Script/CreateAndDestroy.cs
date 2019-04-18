@@ -10,14 +10,16 @@ public class CreateAndDestroy : MonoBehaviour
 
     private float offset_ = 0.1f;
 
-    public Transform score_popup_transform;
-
+    public Transform score_popup_transform_;
+    //public Transform plus_time_transform_;
+    
+    
     private float this_mass_;
 
     private void Start()
     {
         this_mass_ = this.gameObject.GetComponent<Rigidbody2D>().mass;
-        GameManager.ume_points_ += 1 * this_mass_;
+        GameManager.alive_points_ += 1 * this_mass_;
     }
 
     private void Update()
@@ -42,8 +44,21 @@ public class CreateAndDestroy : MonoBehaviour
                 else
                 {
                     
-                    ScorePopup.Create(score_popup_transform, this.transform.position, 100);
-                    if(Score.score_int_ >= 9999900)
+                    ScorePopup.Create(score_popup_transform_, this.transform.position, 100);
+                    int tempRand = Random.Range(0, 200);
+
+                    if (tempRand == 1)
+                    {
+                        //time+
+                        GameManager.plus_time_flag_ = true;
+                        
+                    }
+                    if(tempRand < 2)
+                    {
+                        GameManager.SetMaxAlivePointPlus();
+                    }
+
+                    if (Score.score_int_ >= 9999900)
                     {
                         return;
                     }
@@ -51,7 +66,7 @@ public class CreateAndDestroy : MonoBehaviour
                     
                     
                 }
-                GameManager.ume_points_ -= 1 * this_mass_;
+                GameManager.alive_points_ -= 1 * this_mass_;
                 Destroy(this.gameObject);
 
             }

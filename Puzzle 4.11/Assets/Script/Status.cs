@@ -58,7 +58,7 @@ public class Status : MonoBehaviour
         if(collision.gameObject.GetComponent<Status>().target_)
         {
             this.collision_time_++;
-            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 10)       //magicNum
+            if(this.collision_time_ > this.gameObject.GetComponent<Rigidbody2D>().mass * 5)       //magicNum
             {
                 SetHomingT();
                 lockon_ = collision.gameObject.transform;

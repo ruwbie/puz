@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using TMPro;
-//==================================================
+
 public class Timer : MonoBehaviour
 {
     public Transform timer_bar_;
@@ -23,6 +21,15 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.plus_time_flag_)
+        {
+            if(GameManager.is_game_over_ == false)
+            {
+                setTimerplus(10);
+
+            }
+        }
+
         if(current_amount_ > 1)
         {
             current_amount_ -= speed_ * Time.deltaTime;
@@ -52,10 +59,13 @@ public class Timer : MonoBehaviour
         timer_bar_.GetComponent<Image>().fillAmount = current_amount_ / 60;
     }
 
-    public void RestartGame() //???
+    public void setTimerplus(int amount)
     {
-        GameManager.ume_points_ = 0;
-        Score.score_int_ = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        this.current_amount_ += amount;
+        if(this.current_amount_ > 60)
+        {
+            this.current_amount_ = 60;
+        }
+        GameManager.plus_time_flag_ = false;
     }
 }
