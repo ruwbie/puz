@@ -36,7 +36,7 @@ public class BeansAnimationController : MonoBehaviour
         }
     }
 
-    private void RandomTrigger()
+    private void RandomTrigger()    //瞬きのトリガー
     {
         float randomX = Random.Range(0, 2);
         if (randomX == 1)
@@ -47,17 +47,13 @@ public class BeansAnimationController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(this.gameObject.GetComponent<Status>().GetHoming() || this.gameObject.GetComponent<Status>().GetTarget())
+        if(this.gameObject.GetComponent<Status>().homing_ || this.gameObject.GetComponent<Status>().target_)
         {
             SetTappedOn();
         }
        
     }
 
-    //private void OnMouseUp()
-    //{
-    //    beans_animator_.SetBool("Is_tapped", false);
-    //}
 
     public void SetTappedOn()
     {

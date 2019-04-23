@@ -13,6 +13,10 @@ public class Timer : MonoBehaviour
     [SerializeField] private float current_amount_;
     [SerializeField] private float speed_;
 
+    public GameObject plustime_pf_;
+
+    public int bonus_time_ ;
+
     private void Start()
     {
         
@@ -25,8 +29,8 @@ public class Timer : MonoBehaviour
         {
             if(GameManager.is_game_over_ == false)
             {
-                setTimerplus(10);
-
+                setTimerplus(bonus_time_);
+                plustime_pf_.GetComponent<CreateOBJ>().CreatePlusTimeOBJ(bonus_time_);
             }
         }
 
@@ -62,7 +66,10 @@ public class Timer : MonoBehaviour
     public void setTimerplus(int amount)
     {
         this.current_amount_ += amount;
-        if(this.current_amount_ > 60)
+
+        
+
+        if (this.current_amount_ > 60)
         {
             this.current_amount_ = 60;
         }

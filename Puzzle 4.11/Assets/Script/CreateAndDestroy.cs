@@ -12,23 +12,47 @@ public class CreateAndDestroy : MonoBehaviour
 
     public Transform score_popup_transform_;
     //public Transform plus_time_transform_;
-    
-    
+
+
     private float this_mass_;
+
+    public float remained_count_;
+    private float disappear_count_;
+    
 
     private void Start()
     {
         this_mass_ = this.gameObject.GetComponent<Rigidbody2D>().mass;
-        GameManager.alive_points_ += 1 * this_mass_;
+        GameManager.remained_counts_ += remained_count_;
+        disappear_count_ = 4;
     }
 
     private void Update()
     {
+        if (this.gameObject.GetComponent<Status>().target_ == false && this.gameObject.GetComponent<Status>().homing_ == false)
+        {
+            if (remained_count_ < 0.4)  //magicNum
+            {
 
-        if(Input.GetMouseButtonUp(0))
+                disappear_count_ -= 1 * Time.deltaTime;
+                if (disappear_count_ < 0)
+                {
+                    this.GetComponent<SpriteRenderer>().color -= new Color(0,0,0,1f) * Time.deltaTime;
+
+                    if(this.GetComponent<SpriteRenderer>().color.a < 0)
+                    {
+                        GameManager.remained_counts_ -= remained_count_;
+                        Destroy(this.gameObject);
+                    }
+                }
+            }
+        }
+
+
+        if (Input.GetMouseButtonUp(0))
         {
 
-            if (this.gameObject.GetComponent<Status>().GetHoming() || this.gameObject.GetComponent<Status>().GetTarget())
+            if (this.gameObject.GetComponent<Status>().homing_ || this.gameObject.GetComponent<Status>().target_)
             {
                 if (smaller_clone_ != null)
                 {
@@ -43,17 +67,19 @@ public class CreateAndDestroy : MonoBehaviour
                 }
                 else
                 {
-                    
+
                     ScorePopup.Create(score_popup_transform_, this.transform.position, 100);
                     int tempRand = Random.Range(0, 200);
 
-                    if (tempRand == 1)
+                    if (tempRand < 2)
                     {
                         //time+
-                        GameManager.plus_time_flag_ = true;
-                        
+                        if (GameManager.is_game_over_ == false)
+                        {
+                            GameManager.plus_time_flag_ = true;
+                        }
                     }
-                    if(tempRand < 2)
+                    if (tempRand < 4)
                     {
                         GameManager.SetMaxAlivePointPlus();
                     }
@@ -63,27 +89,27 @@ public class CreateAndDestroy : MonoBehaviour
                         return;
                     }
                     Score.score_int_ += 100;
-                    
-                    
+
+
                 }
-                GameManager.alive_points_ -= 1 * this_mass_;
+                GameManager.remained_counts_ -= remained_count_;
                 Destroy(this.gameObject);
 
             }
         }
     }
 
-    
+
 
     private void SetPosition(int i)
     {
         int tempint = 1;
-        if(i % 2 !=0)
+        if (i % 2 != 0)
         {
             tempint *= -1;
         }
-        random_position_ = new Vector3(this.transform.position.x - offset_ + (offset_*i), 
-            this.transform.position.y - (offset_*tempint), 
+        random_position_ = new Vector3(this.transform.position.x - offset_ + (offset_ * i),
+            this.transform.position.y - (offset_ * tempint),
             0);
     }
 }

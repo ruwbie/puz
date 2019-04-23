@@ -7,13 +7,10 @@ public class CreateOBJ : MonoBehaviour
     public GameObject plus_time_;
 
 
-
-    // Update is called once per frame
-    void Update()
+    public void CreatePlusTimeOBJ(int amount)
     {
-        if(GameManager.plus_time_flag_)
-        {
-            Instantiate(plus_time_,this.transform);
-        }
+        Instantiate(plus_time_, this.transform);
+
+        plus_time_.GetComponent<TimePopup>().SetText(amount) ;
     }
 }
